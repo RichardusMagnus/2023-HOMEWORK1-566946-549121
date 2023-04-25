@@ -42,6 +42,10 @@ public class Borsa {
 
 		return a;
 	}
+	
+	public Attrezzo[] getAttrezzi() {
+		return attrezzi;
+	}
 
 	public int getPeso() {
 		int peso = 0;

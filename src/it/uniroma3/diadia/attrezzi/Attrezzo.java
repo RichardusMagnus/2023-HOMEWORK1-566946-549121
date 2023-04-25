@@ -8,7 +8,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * Ogni attrezzo ha un nome ed un peso.
  *
  * @author  docente di POO
- * @see Stanza
+ * @see StanzaProtected
  * @version base
  */
 public class Attrezzo {
@@ -48,6 +48,14 @@ public class Attrezzo {
 	 */
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
+	}
+	
+	public void setNomeAttrezzo(String nome) {
+		this.nome = nome;
+	}
+	
+	public void setPesoAttrezzo(int peso) {
+		this.peso = peso;
 	}
 
 }
