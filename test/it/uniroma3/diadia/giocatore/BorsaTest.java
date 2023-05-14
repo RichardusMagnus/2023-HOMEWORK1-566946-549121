@@ -138,7 +138,7 @@ public class BorsaTest {
 		bag.addAttrezzo(osso);
 		//assertEquals(osso, bag.removeAttrezzo("osso"));
 		bag.removeAttrezzo("osso");
-		assertNull(bag.getAttrezzi()[0]);
+		assertTrue(bag.isEmpty());
 	}
 	
 	@Test

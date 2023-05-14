@@ -7,7 +7,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVai implements Comando{
 	private String direzione;
-	private IOConsole console = new IOConsole();
+	private IO console = new IOConsole();
 
 	@Override
 	public void esegui(Partita partita) {

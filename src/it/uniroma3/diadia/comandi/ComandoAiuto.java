@@ -7,7 +7,7 @@ import it.uniroma3.diadia.IO;
 
 public class ComandoAiuto implements Comando {
 	private IO console = new IOConsole();
-	static final private String[] elencoComandi = {"vai", "aiuto", "prendi", "posa", "fine"};
+	static final private String[] elencoComandi = {"aiuto", "vai", "prendi", "posa", "dai", "guarda", "fine"};
 
 	@Override
 	public void esegui(Partita partita) {

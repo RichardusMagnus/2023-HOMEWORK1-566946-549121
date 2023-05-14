@@ -3,11 +3,13 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaMagica extends Stanza{
-	private int contatoreMagico = 0;
-	final int sbloccaMagico = 3;
+	private int contatoreMagico;
+	final int sbloccaMagico;
 
 	public StanzaMagica(String nome) {
 		super(nome);
+		this.contatoreMagico = 0;
+		this.sbloccaMagico = 3;
 	}
 
 	@Override

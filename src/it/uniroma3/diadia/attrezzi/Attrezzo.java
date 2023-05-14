@@ -50,12 +50,37 @@ public class Attrezzo {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
 	
+	/**
+	 * Imposta il nome dell'attrezzo
+	 * @param nome
+	 */
 	public void setNomeAttrezzo(String nome) {
 		this.nome = nome;
 	}
 	
+	/**
+	 * Imposta il peso dell'attrezzo
+	 * @param peso
+	 */
 	public void setPesoAttrezzo(int peso) {
 		this.peso = peso;
+	}
+	
+	/**
+	 * Verifica che due attrezzi siano l'uno il duplicato dell'altro
+	 * @param a
+	 * @return
+	 */
+	public boolean equals(Object o) {
+		Attrezzo that = (Attrezzo)o;
+		return this.getNome()==that.getNome();
+	}
+	
+	/**
+	 * Ritorna l'hashcode di un attrezzo
+	 */
+	public int hashCode() {
+		return this.getNome().hashCode();
 	}
 
 }

@@ -3,35 +3,28 @@ package it.uniroma3.diadia.ambienti;
 public class StanzaBloccata extends Stanza{
 	private final String chiave;
 	private final String dirBloc;
-	private StanzaBloccata questaStanza;
-	private final String messBloc = "La porta in direzione " + getDirBloc() +
-			" è bloccata! Serve un attrezzo che "
-			+ "possa forzarne l'apertura.\n";
+	private final String messBloc;
 
 	public StanzaBloccata(String nome, String dirBloc, String chiave) {
 		super(nome);
 		this.chiave = chiave;
 		this.dirBloc = dirBloc;
-		this.questaStanza = this;
+		this.messBloc = "\nLa porta in direzione " + getDirBloc() +
+					" è bloccata! Serve un attrezzo che "
+					+ "possa forzarne l'apertura.";
 	}
 
 	@Override
 	public String getDescrizione() {
-		if (getAttrezzi()[0]!=null) {
-			for (int i=0; i<getAttrezzi().length; i++)
-				if (getAttrezzi()[i].getNome()==chiave) return super.getDescrizione();
-		}
-		return super.getDescrizione() + getMessBloc();
+		if (!this.hasAttrezzo(chiave))
+			return super.getDescrizione() + getMessBloc();
+		return super.getDescrizione();
 	}
 
 	@Override
 	public Stanza getStanzaAdiacente(String direzione) {
-		if (direzione==dirBloc) {
-			if (getAttrezzi()[0]!=null) {
-				for (int i=0; i<getAttrezzi().length; i++)
-					if (getAttrezzi()[i].getNome()==chiave) return super.getStanzaAdiacente(direzione);
-			}
-			return this.questaStanza;
+		if (dirBloc.equals(direzione) && !this.hasAttrezzo(chiave)) {
+			return this;
 		}
 		else return super.getStanzaAdiacente(direzione);
 	}
