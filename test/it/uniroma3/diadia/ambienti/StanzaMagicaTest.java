@@ -37,7 +37,7 @@ public class StanzaMagicaTest {
 	@Test
 	public void testAddAttrezzoMag() {
 		this.magicRoom.addAttrezzo(item3);
-		assertEquals("3ozzertta", this.magicRoom.getAttrezzi()[2].getNome());
-		assertEquals(2, this.magicRoom.getAttrezzi()[2].getPeso());
+		assertTrue(this.magicRoom.getAttrezzi().containsKey("3ozzertta"));
+		assertEquals(2, this.magicRoom.getAttrezzo("3ozzertta").getPeso());
 	}
 }

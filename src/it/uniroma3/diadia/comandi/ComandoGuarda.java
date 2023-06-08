@@ -4,7 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 
-public class ComandoGuarda implements Comando {
+public class ComandoGuarda extends AbstractComando implements Comando {
 	IO console = new IOConsole();
 
 	@Override
@@ -12,11 +12,4 @@ public class ComandoGuarda implements Comando {
 		console.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 
 	}
-
-	@Override
-	public void setParametro(String parametro) {
-		return;
-
-	}
-
 }

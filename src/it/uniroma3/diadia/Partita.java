@@ -1,4 +1,6 @@
 package it.uniroma3.diadia;
+import java.io.Console;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
@@ -14,26 +16,17 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Partita {
 
 	private Labirinto labirinto;
-	private Stanza stanzaCorrente;
+	public Stanza stanzaCorrente;
 	private Giocatore player;
 	private boolean finita;
 	
 
-	public Partita(){
-		labirinto = new Labirinto();
-		stanzaCorrente = labirinto.getStanzaIniziale();
-		player = new Giocatore();
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
+		this.player = new Giocatore();
 		this.finita = false;
 	}
 
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
-	}
-
-	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
-	}
-	
 	public Giocatore getGiocatore() {
 		return this.player;
 	}
@@ -47,7 +40,13 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente() == labirinto.getStanzaVincente();
+		if (this.getLabirinto().getStanzaCorrente() == labirinto.getStanzaVincente())  {
+			IO c = new IOConsole();
+			c.mostraMessaggio("+++ Hai vinto! Grazie per aver giocato. +++");
+			return true;
+		}
+		else return false;
+		
 	}
 
 	/**
@@ -64,5 +63,13 @@ public class Partita {
 	 */
 	public void setFinita() {
 		this.finita = true;
+	}
+	
+	public Stanza getStanzaCorrente() {
+		return this.stanzaCorrente;
+	}
+	
+	public void setStanzaCorrente(Stanza s) {
+		this.stanzaCorrente = s;
 	}
 }

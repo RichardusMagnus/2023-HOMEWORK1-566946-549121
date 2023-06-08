@@ -4,7 +4,7 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoFine implements Comando {
+public class ComandoFine extends AbstractComando implements Comando {
 	private IO console = new IOConsole();
 
 	@Override
@@ -12,8 +12,4 @@ public class ComandoFine implements Comando {
 		console.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 
 	}
-
-	@Override
-	public void setParametro(String parametro) {}
-
 }

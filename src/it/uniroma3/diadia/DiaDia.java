@@ -1,8 +1,9 @@
 package it.uniroma3.diadia;
-import java.util.Scanner;
 
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -33,15 +34,15 @@ public class DiaDia {
 
 
 	private Partita partita;
-
 	private IO console;
 
-	public DiaDia() {
-		this.console = new IOConsole();
-		this.partita = new Partita();
+	public DiaDia(Labirinto labirinto, IO console) {
+		this.console = console;
+		this.partita = new Partita(labirinto);
 	}
 
-	public void gioca() {
+	
+	public void gioca() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		String istruzione; 
 		FabbricaDiComandi costruttore = new FabbricaDiComandiFisarmonica();
 		Comando daEseguire;
@@ -55,8 +56,16 @@ public class DiaDia {
 		while (!this.partita.isFinita());
 	}
 
-	public static void main(String[] argc) {
-		DiaDia gioco = new DiaDia();
+	public static void main(String[] argc) throws InstantiationException, IllegalAccessException, ClassNotFoundException, FileNotFoundException, FormatoFileNonValidoException {
+		IO io = new IOConsole();
+		
+		Labirinto lab = new LabirintoBuilder()
+				.addStanzaIniziale("atrio")
+				.addStanzaVincente("biblioteca")
+				.addAdiacenza("atrio", "biblioteca", Direzione.nord)
+				.getLabirinto();
+		
+		DiaDia gioco = new DiaDia(lab, io);
 		gioco.gioca();
 	}
 }

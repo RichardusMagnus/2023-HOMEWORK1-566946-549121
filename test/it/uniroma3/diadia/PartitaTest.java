@@ -11,7 +11,8 @@ import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class PartitaTest {
-	Partita partita = new Partita();
+	Labirinto lab = new Labirinto();
+	Partita partita = new Partita(lab);
 	Stanza area = new Stanza("area");
 	Stanza area2 = new Stanza("area 2");
 	Giocatore player = new Giocatore();
@@ -19,41 +20,41 @@ public class PartitaTest {
 	//SET STANZA CORRENTE
 	@Test
 	public void testSetStanzaCorrente_prima() {
-		partita.setStanzaCorrente(area);
-		assertEquals(area, partita.getStanzaCorrente());
+		partita.getLabirinto().setStanzaCorrente(area);
+		assertEquals(area, partita.getLabirinto().getStanzaCorrente());
 	}
 	
 	@Test
 	public void testSetStanzaCorrente_sostituzione() {
-		partita.setStanzaCorrente(area);
-		partita.setStanzaCorrente(area2);
-		assertEquals(area2, partita.getStanzaCorrente());
+		partita.getLabirinto().setStanzaCorrente(area);
+		partita.getLabirinto().setStanzaCorrente(area2);
+		assertEquals(area2, partita.getLabirinto().getStanzaCorrente());
 	}
 	
 	@Test
 	public void testSetStanzaCorrente_spostamento() {
-		partita.setStanzaCorrente(area);
+		partita.getLabirinto().setStanzaCorrente(area);
 		area.impostaStanzaAdiacente("direzione", area2);
-		partita.setStanzaCorrente(partita.getStanzaCorrente().getStanzaAdiacente("direzione"));
-		assertEquals(area2, partita.getStanzaCorrente());
+		partita.getLabirinto().setStanzaCorrente(partita.getLabirinto().getStanzaCorrente().getStanzaAdiacente("direzione"));
+		assertEquals(area2, partita.getLabirinto().getStanzaCorrente());
 	}
 	
 	//GET STANZA CORRENTE
 	@Test
 	public void testGetStanzaCorrente_null() {
-		assertNotNull(partita.getStanzaCorrente());
+		assertNotNull(partita.getLabirinto().getStanzaCorrente());
 	}
 
 	//TEST VINTA
 	@Test
 	public void testVinta() {
-		this.partita.setStanzaCorrente(partita.getLabirinto().getStanzaVincente());
+		this.partita.getLabirinto().setStanzaCorrente(partita.getLabirinto().getStanzaVincente());
 		assertTrue(partita.vinta());
 	}
 	
 	@Test
 	public void testVinta_falso() {
-		partita.setStanzaCorrente(area);
+		partita.getLabirinto().setStanzaCorrente(area);
 		assertFalse(partita.vinta());
 	}
 	
@@ -66,7 +67,7 @@ public class PartitaTest {
 	
 	@Test
 	public void testIsFinita_vinta() {
-		partita.setStanzaCorrente(partita.getLabirinto().getStanzaVincente());
+		partita.getLabirinto().setStanzaCorrente(partita.getLabirinto().getStanzaVincente());
 		assertTrue(partita.isFinita());
 	}
 	

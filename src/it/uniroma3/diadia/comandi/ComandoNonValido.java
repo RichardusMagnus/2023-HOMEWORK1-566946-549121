@@ -4,7 +4,7 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoNonValido implements Comando {
+public class ComandoNonValido extends AbstractComando {
 	private IO console = new IOConsole();
 	private final String CNV = "Comando non valido.";
 
@@ -12,8 +12,5 @@ public class ComandoNonValido implements Comando {
 	public void esegui(Partita partita) {
 		console.mostraMessaggio(CNV);
 	}
-
-	@Override
-	public void setParametro(String parametro) {}
 
 }

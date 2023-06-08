@@ -12,16 +12,16 @@ public class LabirintoTest {
 	public void testGetStanzaVincente() {
 		Stanza area = new Stanza("area");
 		Labirinto lab = new Labirinto();
-		lab.stanzaVincente = area;
-		assertEquals(area, lab.stanzaVincente);
+		lab.setStanzaIniziale(area);
+		assertEquals(area, lab.getStanzaVincente());
 	}
 
 	@Test
 	public void testGetStanzaIniziale() {
 		Stanza area = new Stanza("area");
 		Labirinto lab = new Labirinto();
-		lab.stanzaIniziale = area;
-		assertEquals(area, lab.stanzaIniziale);
+		lab.setStanzaIniziale(area);
+		assertEquals(area, lab.getStanzaIniziale());
 	}
 
 }

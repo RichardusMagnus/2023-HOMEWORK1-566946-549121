@@ -4,6 +4,7 @@ package it.uniroma3.diadia.ambienti;
 import static org.junit.Assert.*;
 
 import java.awt.geom.Area;
+import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,38 +43,7 @@ public class StanzaTest {
 	public void testAddAttrezzo_ultimo() {
 		for(int i=0; i<9; i++) area.addAttrezzo(new Attrezzo("item", 1));
 		assertTrue(area.addAttrezzo(new Attrezzo("item10", 10)));
-	}
-	
-	@Test
-	public void testAddAttrezzo_troppo() {
-		for(int i=0; i<10; i++) area.addAttrezzo(new Attrezzo("item", 1));
-		assertFalse(area.addAttrezzo(new Attrezzo ("item11", 11)));
-	}
-	
-	
-	//GET ATTREZZI
-	@Test
-	public void testGetAttrezzi_nullo() {
-		assertNull(area.getAttrezzi()[0]);
-	}
-	
-	@Test
-	public void testGetAttrezzi_nonNullo() {
-		for(int i=0; i<2; i++) area.addAttrezzo(new Attrezzo("item", 1));
-		assertNotNull(area.getAttrezzi());
-	}
-	
-	@Test
-	public void testGetAttrezzi_stampa() {
-		Attrezzo item1 = new Attrezzo("item1", 1);
-		Attrezzo item2 = new Attrezzo("item2", 1);
-		area.addAttrezzo(item1);
-		area.addAttrezzo(item2);
-		
-		assertEquals(item1, area.getAttrezzi()[0]);
-		assertEquals(item2, area.getAttrezzi()[1]);
-	}
-	
+	}	
 	
 	//GET ATTREZZO
 	@Test
@@ -107,9 +77,6 @@ public class StanzaTest {
 	
 	
 	//HAS ATTREZZO
-	/*affinché i test funzionassero è stato necessario sostituire i for each con i for
-	 * semplici, perché i primi funzionano solo con array completamente non nulli
-	 */
 	@Test
 	public void testHasAttrezzo_listaVuota() {
 		assertFalse(area.hasAttrezzo("barbabietola"));
@@ -258,15 +225,7 @@ public class StanzaTest {
 		Attrezzo osso = new Attrezzo("osso", 5);
 		area.addAttrezzo(osso);
 		area.removeAttrezzo("osso");
-		assertEquals(0, area.numeroAttrezzi);
-	}
-	
-	@Test
-	public final void testRemoveAttrezzo_rimastiDue() {
-		Attrezzo osso = new Attrezzo("osso", 5);
-		area.addAttrezzo(osso);
-		area.addAttrezzo(osso);
-		area.removeAttrezzo("osso");
-		assertEquals(1, area.numeroAttrezzi);
+		
+		assertTrue(area.getAttrezzi().isEmpty());
 	}
 }

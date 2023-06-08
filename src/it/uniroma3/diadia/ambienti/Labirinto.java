@@ -1,131 +1,217 @@
 package it.uniroma3.diadia.ambienti;
-import java.util.Set;
 
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+
+import it.uniroma3.diadia.CaricatoreLabirinto;
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.Cane;
+import it.uniroma3.diadia.personaggi.Mago;
+import it.uniroma3.diadia.personaggi.Strega;
 
-public class Labirinto {
-	public Stanza stanzaIniziale;
-	public Stanza stanzaVincente;
-	public Set<Stanza> tutteLeStanze;
-	public Set<Attrezzo> tuttiGliAttrezzi;
+public class Labirinto{
+	private Stanza stanzaIniziale;
+	private Stanza stanzaVincente;
 
-	public Labirinto() {
-		creaLabirinto();
+	public Labirinto(String nomeFile) throws FileNotFoundException, FormatoFileNonValidoException {
+		CaricatoreLabirinto c =
+				new CaricatoreLabirinto(nomeFile);
+		c.carica();
+		this.stanzaIniziale = c.getStanzaIniziale();
+		this.stanzaVincente = c.getStanzaVincente();
 	}
-	
-	private void creaLabirinto() {
+	//    /**
+	//     * Crea tutte le stanze e le porte di collegamento
+	//     */
+	//    public void creaStanze() {
+	//
+	//		/* crea gli attrezzi */
+	//    	Attrezzo lanterna = new Attrezzo("lanterna",3);
+	//		Attrezzo osso = new Attrezzo("osso",1);
+	//		Attrezzo piedediporco = new Attrezzo("piedediporco",2);
+	//		Attrezzo vanga = new Attrezzo("vanga",1);
+	//		Attrezzo pala = new Attrezzo("pala",1);
+	//
+	//    	
+	//		/* crea stanze del labirinto */
+	//		Stanza atrio = new Stanza("Atrio");
+	//		Stanza aulaN11 = new StanzaMagica("Aula N11");
+	//		Stanza aulaN10 = new StanzaBloccata("Aula N10", "est", "piedediporco");
+	//		Stanza laboratorio = new StanzaBuia("Laboratorio Campus", "lanterna");
+	//		Stanza biblioteca = new Stanza("Biblioteca");
+	//		
+	//		/* collega le stanze */
+	//		atrio.impostaStanzaAdiacente("nord", biblioteca);
+	//		atrio.impostaStanzaAdiacente("est", aulaN11);
+	//		atrio.impostaStanzaAdiacente("sud", aulaN10);
+	//		atrio.impostaStanzaAdiacente("ovest", laboratorio);
+	//		aulaN11.impostaStanzaAdiacente("est", laboratorio);
+	//		aulaN11.impostaStanzaAdiacente("ovest", atrio);
+	//		aulaN10.impostaStanzaAdiacente("nord", atrio);
+	//		aulaN10.impostaStanzaAdiacente("est", aulaN11);
+	//		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
+	//		laboratorio.impostaStanzaAdiacente("est", atrio);
+	//		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
+	//		biblioteca.impostaStanzaAdiacente("sud", atrio);
+	//
+	//        /* pone gli attrezzi nelle stanze */
+	//		aulaN10.addAttrezzo(lanterna);
+	//		atrio.addAttrezzo(osso);
+	//		atrio.addAttrezzo(vanga);
+	//		atrio.addAttrezzo(pala);
+	//		aulaN11.addAttrezzo(piedediporco);
+	//
+	//		// il gioco comincia nell'atrio
+	//        stanzaCorrente = atrio;  
+	//		stanzaVincente = biblioteca;
+	//    }
 
-		/* crea gli attrezzi */
-    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-		Attrezzo osso = new Attrezzo("osso",1);
-		Attrezzo chiave = new Attrezzo("evaihc", 1);
-		Attrezzo ariete = new Attrezzo("ariete", 10);
-		Attrezzo sasso = new Attrezzo("sasso", 2);
-		Attrezzo passepartout = new Attrezzo("passepartout", 0);
-		Attrezzo diario = new Attrezzo("diario_del_fuorisede", 5);
-		Attrezzo torcia = new Attrezzo("torcia",2);
-		Attrezzo caffe = new Attrezzo("caffè", 1);
-		Attrezzo striscione = new Attrezzo("striscione_elettorale", 10);
-		
-		this.tuttiGliAttrezzi.add(lanterna);
-		this.tuttiGliAttrezzi.add(osso);
-		this.tuttiGliAttrezzi.add(chiave);
-		this.tuttiGliAttrezzi.add(ariete);
-		this.tuttiGliAttrezzi.add(sasso);
-		this.tuttiGliAttrezzi.add(passepartout);
-		this.tuttiGliAttrezzi.add(diario);
-		this.tuttiGliAttrezzi.add(torcia);
-		this.tuttiGliAttrezzi.add(caffe);
-		this.tuttiGliAttrezzi.add(striscione);
-    	
-		/* crea stanze del labirinto */
-		Stanza atrio = new Stanza("Atrio");
-		Stanza aulaN11 = new StanzaBloccata("Aula N11","sud","caffè");
-		Stanza aulaN10 = new Stanza("Aula N10");
-		Stanza laboratorio = new Stanza("Laboratorio Campus");
-		Stanza biblioteca = new Stanza("Biblioteca");
-		Stanza covo = new Stanza ("Il Covo di Studenti alla Terza");
-		Stanza fogne = new StanzaBuia("Sistema Fognario", "torcia");
-		Stanza segreta = new Stanza("Camera dei Segreti");
-		Stanza aulaStudio = new Stanza("Aula Studio");
-		Stanza aulaN5 = new Stanza("Aula N5");
-		Stanza bar = new Stanza("Bar");
-		Stanza mensa = new StanzaBloccata("Mensa","sud","chiave");
-		Stanza portineria = new Stanza("Portineria");
-		Stanza wc = new Stanza("Bagno");
-		Stanza ufficio = new StanzaMagica("Ufficio del Rettore");
-		
-		this.tutteLeStanze.add(atrio);
-		this.tutteLeStanze.add(aulaN11);
-		this.tutteLeStanze.add(aulaN10);
-		this.tutteLeStanze.add(laboratorio);
-		this.tutteLeStanze.add(biblioteca);
-		this.tutteLeStanze.add(covo);
-		this.tutteLeStanze.add(fogne);
-		this.tutteLeStanze.add(segreta);
-		this.tutteLeStanze.add(aulaStudio);
-		this.tutteLeStanze.add(aulaN5);
-		this.tutteLeStanze.add(bar);
-		this.tutteLeStanze.add(mensa);
-		this.tutteLeStanze.add(portineria);
-		this.tutteLeStanze.add(wc);
-		this.tutteLeStanze.add(ufficio);
-		
-		
-		/* collega le stanze */
-		atrio.impostaStanzaAdiacente("nord", portineria);
-		atrio.impostaStanzaAdiacente("ovest", aulaN11);
-		atrio.impostaStanzaAdiacente("est", aulaStudio);
-		aulaN11.impostaStanzaAdiacente("est", atrio);
-		aulaN11.impostaStanzaAdiacente("nord", aulaN10);
-		aulaN11.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN11.impostaStanzaAdiacente("sud", wc);
-		aulaN10.impostaStanzaAdiacente("sud", aulaN11);
-		laboratorio.impostaStanzaAdiacente("est", aulaN11);
-		wc.impostaStanzaAdiacente("sciacquone", fogne);
-		wc.impostaStanzaAdiacente("nord", aulaN11);
-		fogne.impostaStanzaAdiacente("tombino", wc);
-		fogne.impostaStanzaAdiacente("ovest", segreta);
-		fogne.impostaStanzaAdiacente("sud", covo);
-		fogne.impostaStanzaAdiacente("teletrasporto", ufficio);
-		ufficio.impostaStanzaAdiacente("teletrasporto", atrio);
-		aulaStudio.impostaStanzaAdiacente("ovest", atrio);
-		aulaStudio.impostaStanzaAdiacente("nord", aulaN5);
-		aulaN5.impostaStanzaAdiacente("sud", aulaStudio);
-		aulaN5.impostaStanzaAdiacente("ovest", portineria);
-		aulaN5.impostaStanzaAdiacente("nord", bar);
-		portineria.impostaStanzaAdiacente("sud", atrio);
-		portineria.impostaStanzaAdiacente("est", aulaN5);
-		bar.impostaStanzaAdiacente("sud", aulaN5);
-		bar.impostaStanzaAdiacente("est", mensa);
-		mensa.impostaStanzaAdiacente("sud", biblioteca);
-		mensa.impostaStanzaAdiacente("ovest", bar);
-		segreta.impostaStanzaAdiacente("est", fogne);
-		covo.impostaStanzaAdiacente("nord", fogne);
-
-        /* pone gli attrezzi nelle stanze */
-		laboratorio.addAttrezzo(lanterna);
-		atrio.addAttrezzo(osso);
-		mensa.addAttrezzo(chiave);
-		portineria.addAttrezzo(passepartout);
-		portineria.addAttrezzo(ariete);
-		wc.addAttrezzo(sasso);
-		aulaN5.addAttrezzo(torcia);
-		bar.addAttrezzo(caffe);
-		segreta.addAttrezzo(diario);
-		covo.addAttrezzo(striscione);
-		
-
-		// il gioco comincia nell'atrio
-        this.stanzaIniziale = atrio;  
-		this.stanzaVincente = biblioteca;
-    }
+	public static LabirintoBuilder newBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+		return new LabirintoBuilder(labirinto);
+	}
 
 	public Stanza getStanzaVincente() {
 		return stanzaVincente;
 	}
 
-	public Stanza getStanzaIniziale() {
+	public void setStanzaVincente(Stanza stanzaVincente) {
+		this.stanzaVincente = stanzaVincente;
+	}
+	public void setStanzaCorrente(Stanza stanzaCorrente) {
+		this.stanzaIniziale = stanzaCorrente;
+	}
+
+	public Stanza getStanzaCorrente() {
 		return this.stanzaIniziale;
 	}
+
+	//static nested class LabirintoBuilder======================
+	//===========================================
+	//===========================================
+	//===========================================
+	//===========================================
+	public static class LabirintoBuilder {
+		
+		public static  class Pippo {
+			//another useless nested class
+		}
+		
+		private Labirinto labirinto;
+		private Stanza ultimaStanzaAggiunta;
+		private Map<String, Stanza> nome2stanza;
+
+		public LabirintoBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+			this.labirinto = new Labirinto(labirinto);
+			this.nome2stanza = new HashMap<>();
+		}
+
+		public Map<String, Stanza> getNome2stanza() {
+			return nome2stanza;
+		}
+
+		public Labirinto getLabirinto() {
+			return this.labirinto;
+		}
+
+		public LabirintoBuilder addStanzaIniziale(String stanzaIniziale) {
+			Stanza i = new Stanza(stanzaIniziale);
+			this.labirinto.setStanzaCorrente(i);
+			this.UltimaStanzaAggiuntaEAggiorna(i);
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaVincente(String stanzaVincente) {
+			Stanza s = new Stanza(stanzaVincente);
+			this.labirinto.setStanzaVincente(s);
+			this.UltimaStanzaAggiuntaEAggiorna(s);
+			return this;
+		}
+
+		public LabirintoBuilder addStanza(String stanza) {
+			Stanza s = new Stanza(stanza);
+			this.UltimaStanzaAggiuntaEAggiorna(s);
+			return this;
+		}	
+
+		//		public LabirintoBuilder addPersonaggio(String nome, String presentazione) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+		//			AbstractPersonaggio p = null;
+		//
+		//			StringBuilder nomeClasse
+		//			= new StringBuilder("it.uniroma3.diadia.personaggi.");
+		//			nomeClasse.append( nome.substring(1) ) ;
+		//			p = (AbstractPersonaggio)Class.forName(nomeClasse.toString()).newInstance();
+		//			p.setNome(nome);
+		//			p.setPresentazione(presentazione);
+		//			if(this.ultimaStanzaAggiunta==null)
+		//				return this;
+		//			this.ultimaStanzaAggiunta.setPersonaggio(p);
+		//			return this;
+		//		}
+
+		public LabirintoBuilder  addMago(String nome, String presentazione, Attrezzo attrezzo) {
+			Mago m = new Mago(nome, presentazione, attrezzo);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(m);
+			return this;
+		}
+
+		public LabirintoBuilder  addCane(String nome, String presentazione) {
+			Cane c = new Cane(nome, presentazione, "osso", new Attrezzo("gioco", 1));
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(c);
+			return this;
+		}
+
+		public LabirintoBuilder  addStrega(String nome, String presentazione) {
+			Strega s = new Strega(nome, presentazione);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.setPersonaggio(s);
+			return this;
+		}
+
+		public LabirintoBuilder addAttrezzo(String attrezzo, int peso) {
+			Attrezzo a = new Attrezzo(attrezzo, peso);
+			if(this.ultimaStanzaAggiunta==null)
+				return this;
+			this.ultimaStanzaAggiunta.addAttrezzo(a);
+			return this;
+		}
+
+		public LabirintoBuilder addAdiacenza(String stanzaCorrente, String stanzaAdiecente, Direzione direzione) {
+			Stanza c = this.nome2stanza.get(stanzaCorrente);
+			Stanza a = this.nome2stanza.get(stanzaAdiecente);
+			c.impostaStanzaAdiacente(direzione, a);
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaMagica(String nome) {
+			Stanza stanza = new StanzaMagica(nome);
+			this.UltimaStanzaAggiuntaEAggiorna(stanza);
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaBuia(String nome, String attrezzoPerVedere) {
+			Stanza stanza = new StanzaBuia(nome,attrezzoPerVedere);
+			this.UltimaStanzaAggiuntaEAggiorna(stanza);
+			return this;
+		}
+
+		public LabirintoBuilder addStanzaBloccata(String nome, String attrezzoSbloccante, String direzioneBloccata) {
+			Stanza stanza = new StanzaBloccata(nome, Direzione.valueOf(direzioneBloccata), attrezzoSbloccante);
+			this.UltimaStanzaAggiuntaEAggiorna(stanza);
+			return this;
+		}
+
+		public void UltimaStanzaAggiuntaEAggiorna(Stanza stanza) {
+			this.ultimaStanzaAggiunta = stanza;
+			this.nome2stanza.put(stanza.getNome(), stanza);
+		}
+		
+	}
+
 }
